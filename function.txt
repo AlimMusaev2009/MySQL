@@ -1,0 +1,38 @@
+CREATE DEFINER=`root`@`localhost` FUNCTION `generate_fullname`() RETURNS varchar(100) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+	declare first_name int;
+	declare second_name int;
+	declare last_name int;
+	declare full_name varchar(100);
+	set first_name = Floor(rand() * 5)+ 1;
+	set second_name = Floor(rand() * 5)+ 1;
+	set last_name = Floor(rand() * 5)+ 1;
+	set full_name = Concat
+		(ELT(first_name, "Владимир", "Путин", "Победа", "Владимирович", "Движушкин"), ' ',
+		ELT(second_name, "Владимир", "Путин", "Победа", "Владимирович", "Движушкин"), ' ',
+		ELT(last_name, "Владимир", "Путин", "Победа", "Владимирович", "Движушкин"));
+return full_name;
+END
+
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `subject_insert`(num INT) RETURNS varchar(50) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+	declare sub_name varchar(50);
+    declare num int;
+    select(id + 1) into num from subjects;
+	set sub_name = ELT(num, "математика","биология","русский","английский","основы проектирования баз данных","ыфввфывфыв");
+return sub_name;	
+END
+
+
+CREATE function random_id_range()
+returns integer
+BEGIN
+	declare t_id int;
+    select id
+	into t_id from teacher
+    order by rand() limit 1;
+returns t_id;
+END
