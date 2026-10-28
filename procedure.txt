@@ -1,0 +1,46 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `p_subject_insert`()
+BEGIN
+
+	DECLARE i INT DEFAULT 1;
+    DECLARE Count INT DEFAULT 1;
+    DECLARE t_id INT DEFAULT 1;
+    SELECT Count(id)
+    INTO i
+    FROM subjects;
+    SET count = i + 100;
+    
+    WHILE i < count DO
+		SELECT id INTO t_id FROM teachers ORDER BY rand() LIMIT 1;
+		INSERT INTO subjects(sub_name, hours, teacher_id)
+        VALUES(
+			subject_insert(i);
+            FLOOR(RAND() * 100)
+            t_id
+        );
+		SET i = i + 1;
+    END WHILE;
+END
+
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `teacher_insert`()
+BEGIN
+
+	DECLARE i INT DEFAULT 1;
+    DECLARE Count INT DEFAULT 1;
+    SELECT Count(id)
+    INTO i
+    FROM teacher;
+    SET count = i + 100;
+    
+    WHILE i < count DO
+		INSERT INTO teacher(full_name, email, phone, created_at)
+        VALUES(
+			generate_fullname(),
+            concat("teach_", i, "@gmail.com"),
+            concat("+7978", LPAD(i, 7, "0")),
+            date_add("2025-01-01", Interval i day)
+        );
+		SET i = i + 1;
+    END WHILE;
+END
