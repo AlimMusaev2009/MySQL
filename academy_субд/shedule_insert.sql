@@ -1,6 +1,3 @@
-DELIMITER //
-
-DROP PROCEDURE IF EXISTS ps_shedule_insert //
 
 CREATE PROCEDURE ps_shedule_insert()
 BEGIN
@@ -22,4 +19,3 @@ BEGIN
     END WHILE;
 END //
 
-DELIMITER;
